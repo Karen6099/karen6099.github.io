@@ -1,8 +1,10 @@
 import { useTheme } from '../../contexts/ThemeContext';
+import { useStarfield } from '../../contexts/StarfieldContext';
 import './FloatingNav.css';
 
 const FloatingNav = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();
+  const { toggleStarfield } = useStarfield();
 
   return (
     <div className="floating-nav-bar">
@@ -39,6 +41,15 @@ const FloatingNav = () => {
 
       {/* Divider */}
       <div className="floating-nav-divider"></div>
+
+      {/* Starfield Toggle */}
+      <div className="floating-nav-item">
+        <button className="nav-icon-btn" title="Toggle starfield" onClick={toggleStarfield}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L15.09 10.26H23.36L17.63 14.97L20.72 23.23L12 18.52L3.28 23.23L6.37 14.97L0.64 10.26H8.91L12 2Z" fill="currentColor"></path>
+          </svg>
+        </button>
+      </div>
 
       {/* Theme Toggle */}
       <div className="floating-nav-item">

@@ -1,8 +1,17 @@
 import { useEffect } from 'react';
+import { useStarfield } from '../../contexts/StarfieldContext';
 import './StarField.css';
 
 const StarField = () => {
+  const { isStarfieldVisible } = useStarfield();
+
   useEffect(() => {
+    if (!isStarfieldVisible) {
+      // Remove all stars if starfield is hidden
+      document.querySelectorAll('.star-fall').forEach(star => star.remove());
+      return;
+    }
+
     const createStarfield = () => {
       const starCount = 100;
 
@@ -31,7 +40,7 @@ const StarField = () => {
       // Cleanup stars on unmount
       document.querySelectorAll('.star-fall').forEach(star => star.remove());
     };
-  }, []);
+  }, [isStarfieldVisible]);
 
   return null;
 };

@@ -15,17 +15,17 @@
 .hero h1 {
   font-size: 4rem;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: white;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
 }
 
 .hero .subtitle {
   font-size: 1.5rem;
-  color: var(--color-text);
+  color: white;
   margin-bottom: 2rem;
-  opacity: 0.8;
+  opacity: 0.9;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .btn {

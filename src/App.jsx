@@ -1,4 +1,5 @@
 import { ThemeProvider } from './contexts/ThemeContext';
+import { StarfieldProvider } from './contexts/StarfieldContext';
 import DVD from './components/Animations/DVD';
 import StarField from './components/Animations/StarField';
 import Navbar from './components/Navbar/Navbar';
@@ -12,15 +13,17 @@ import './App.css';
 function App() {
   return (
     <ThemeProvider>
-      <StarField />
-      <DVD />
-      <Navbar />
-      <Hero />
-      <About />
-      <FlightRadar />
-      <Contact />
-      <FloatingNav />
-      <div className="floating-bottom-blur"></div>
+      <StarfieldProvider>
+        <StarField />
+        <DVD />
+        <Navbar />
+        <Hero />
+        <About />
+        <FlightRadar />
+        {/* <Contact /> */}
+        <FloatingNav />
+        <div className="floating-bottom-blur"></div>
+      </StarfieldProvider>
     </ThemeProvider>
   );
 }
