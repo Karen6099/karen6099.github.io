@@ -6,7 +6,7 @@ import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
 import About from './components/About/About';
 import FlightRadar from './components/FlightRadar/FlightRadar';
-import Contact from './components/Contact/Contact';
+// import Contact from './components/Contact/Contact';
 import FloatingNav from './components/FloatingNav/FloatingNav';
 import './App.css';
 
