@@ -25,8 +25,10 @@ html {
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     color: var(--text-dark);
-    background-color: var(--bg-white);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
     line-height: 1.6;
+    min-height: 100vh;
 }
 
 .container {
@@ -39,8 +41,11 @@ body {
 .navbar {
     position: sticky;
     top: 0;
-    background-color: var(--bg-white);
-    box-shadow: var(--shadow);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.17);
     z-index: 100;
 }
 
@@ -54,7 +59,8 @@ body {
 .nav-brand {
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(--primary-color);
+    color: white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .nav-menu {
@@ -64,14 +70,16 @@ body {
 }
 
 .nav-menu a {
-    color: var(--text-dark);
+    color: white;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
     font-weight: 500;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .nav-menu a:hover {
-    color: var(--primary-color);
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(255, 255, 255, 0.8);
 }
 
 /* Hero Section */
@@ -118,7 +126,7 @@ body {
 /* About Section */
 .about {
     padding: 80px 0;
-    background-color: var(--bg-light);
+    background: transparent;
 }
 
 .about h2,
@@ -128,15 +136,23 @@ body {
     font-size: 2.5rem;
     margin-bottom: 3rem;
     text-align: center;
-    color: var(--text-dark);
+    color: white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .about-content {
     max-width: 700px;
     margin: 0 auto;
     text-align: center;
-    color: var(--text-light);
+    color: rgba(255, 255, 255, 0.9);
     line-height: 1.8;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.17);
 }
 
 .about-content p {
@@ -147,6 +163,7 @@ body {
 /* Projects Section */
 .projects {
     padding: 80px 0;
+    background: transparent;
 }
 
 .projects-grid {
@@ -157,29 +174,32 @@ body {
 }
 
 .project-card {
-    background-color: var(--bg-white);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
     padding: 2rem;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.17);
 }
 
 .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 12px 42px 0 rgba(31, 38, 135, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 .project-header {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--primary-color);
+    color: #fff;
     margin-bottom: 1rem;
 }
 
 .project-card p {
-    color: var(--text-light);
+    color: rgba(255, 255, 255, 0.85);
     margin-bottom: 1rem;
     line-height: 1.6;
 }
@@ -192,29 +212,30 @@ body {
 }
 
 .tag {
-    background-color: var(--bg-light);
-    color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
     padding: 4px 12px;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .project-link {
-    color: var(--primary-color);
+    color: #fff;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
 }
 
 .project-link:hover {
-    color: var(--secondary-color);
+    color: #e0e0ff;
 }
 
 /* Skills Section */
 .skills {
     padding: 80px 0;
-    background-color: var(--bg-light);
+    background: transparent;
 }
 
 .skills-grid {
@@ -225,15 +246,24 @@ body {
 }
 
 .skill-category {
-    background-color: var(--bg-white);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: var(--shadow);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.17);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.skill-category:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 .skill-category h3 {
     font-size: 1.3rem;
-    color: var(--primary-color);
+    color: #fff;
     margin-bottom: 1rem;
 }
 
@@ -243,8 +273,8 @@ body {
 
 .skill-category li {
     padding: 0.5rem 0;
-    color: var(--text-light);
-    border-bottom: 1px solid var(--border-color);
+    color: rgba(255, 255, 255, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .skill-category li:last-child {
@@ -255,10 +285,11 @@ body {
 .contact {
     padding: 80px 0;
     text-align: center;
+    background: transparent;
 }
 
 .contact p {
-    color: var(--text-light);
+    color: rgba(255, 255, 255, 0.9);
     margin-bottom: 2rem;
     font-size: 1.1rem;
 }
@@ -274,27 +305,33 @@ body {
 .contact-link {
     display: inline-block;
     padding: 12px 24px;
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 20px;
     font-weight: 600;
     transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .contact-link:hover {
-    background-color: var(--primary-color);
-    color: var(--bg-white);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+    color: #fff;
     transform: translateY(-2px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
 }
 
 /* Footer */
 .footer {
-    background-color: var(--text-dark);
-    color: var(--bg-white);
+    background: rgba(0, 0, 0, 0.2);
+    color: rgba(255, 255, 255, 0.9);
     text-align: center;
     padding: 2rem 0;
     margin-top: 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Responsive Design */
@@ -354,4 +391,32 @@ body {
     .contact h2 {
         font-size: 1.5rem;
     }
+}
+
+/* Bouncing DVD Logo */
+.dvd-logo {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    cursor: grab;
+    -webkit-user-select: none;
+    user-select: none;
+    filter: drop-shadow(0 4px 15px rgba(255, 107, 107, 0.4));
+    transition: filter 0.3s ease;
+}
+
+.dvd-logo:active {
+    cursor: grabbing;
+}
+
+.dvd-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: hue-rotate(0deg) saturate(1);
+    transition: filter 0.3s ease;
 }

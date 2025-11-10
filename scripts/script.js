@@ -41,4 +41,118 @@ function toggleMobileMenu() {
     navMenu.classList.toggle('active');
 }
 
+// Bouncing DVD Logo
+class BouncingDVD {
+    constructor() {
+        this.element = document.getElementById('dvd-logo');
+        this.imageElement = document.querySelector('.dvd-image');
+        this.width = 100;
+        this.height = 100;
+        
+        // Position and velocity
+        this.x = Math.random() * (window.innerWidth - this.width);
+        this.y = Math.random() * (window.innerHeight - this.height);
+        this.vx = (Math.random() - 0.5) * 6;
+        this.vy = (Math.random() - 0.5) * 6;
+        
+        // Hue rotation values for color changes
+        this.hueRotations = [0, 45, 90, 135, 180, 225, 270, 315];
+        this.currentHue = 0;
+        
+        this.setPosition();
+        this.animate();
+        
+        // Handle window resize
+        window.addEventListener('resize', () => this.handleResize());
+        
+        // Allow dragging
+        this.element.addEventListener('mousedown', (e) => this.startDrag(e));
+        document.addEventListener('mousemove', (e) => this.drag(e));
+        document.addEventListener('mouseup', () => this.stopDrag());
+    }
+    
+    setPosition() {
+        this.element.style.left = this.x + 'px';
+        this.element.style.top = this.y + 'px';
+    }
+    
+    changeColor() {
+        // Get a random hue rotation value
+        this.currentHue = this.hueRotations[Math.floor(Math.random() * this.hueRotations.length)];
+        this.imageElement.style.filter = `hue-rotate(${this.currentHue}deg) saturate(1.2)`;
+    }
+    
+    animate() {
+        this.x += this.vx;
+        this.y += this.vy;
+        
+        // Bounce off walls
+        if (this.x <= 0 || this.x >= window.innerWidth - this.width) {
+            this.vx *= -1;
+            this.x = Math.max(0, Math.min(this.x, window.innerWidth - this.width));
+            this.changeColor();
+        }
+        
+        if (this.y <= 0 || this.y >= window.innerHeight - this.height) {
+            this.vy *= -1;
+            this.y = Math.max(0, Math.min(this.y, window.innerHeight - this.height));
+            this.changeColor();
+        }
+        
+        this.setPosition();
+        requestAnimationFrame(() => this.animate());
+    }
+    
+    handleResize() {
+        // Keep DVD on screen after resize
+        if (this.x > window.innerWidth - this.width) {
+            this.x = window.innerWidth - this.width;
+            this.vx *= -1;
+        }
+        if (this.y > window.innerHeight - this.height) {
+            this.y = window.innerHeight - this.height;
+            this.vy *= -1;
+        }
+    }
+    
+    isDragging = false;
+    dragOffsetX = 0;
+    dragOffsetY = 0;
+    
+    startDrag(e) {
+        this.isDragging = true;
+        this.dragOffsetX = e.clientX - this.x;
+        this.dragOffsetY = e.clientY - this.y;
+        this.element.style.cursor = 'grabbing';
+    }
+    
+    drag(e) {
+        if (this.isDragging) {
+            this.x = e.clientX - this.dragOffsetX;
+            this.y = e.clientY - this.dragOffsetY;
+            
+            // Keep within bounds
+            this.x = Math.max(0, Math.min(this.x, window.innerWidth - this.width));
+            this.y = Math.max(0, Math.min(this.y, window.innerHeight - this.height));
+            
+            this.setPosition();
+        }
+    }
+    
+    stopDrag() {
+        if (this.isDragging) {
+            this.isDragging = false;
+            this.element.style.cursor = 'grab';
+            // Give it a random velocity when released
+            this.vx = (Math.random() - 0.5) * 6;
+            this.vy = (Math.random() - 0.5) * 6;
+        }
+    }
+}
+
+// Initialize bouncing DVD when page loads
+window.addEventListener('load', () => {
+    new BouncingDVD();
+});
+
 console.log('Portfolio page loaded successfully!');
