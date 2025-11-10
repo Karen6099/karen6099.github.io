@@ -506,3 +506,115 @@ body::before {
     filter: hue-rotate(0deg) saturate(1);
     transition: filter 0.3s ease;
 }
+
+/* Floating Navigation Bar */
+.floating-nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-1rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 9999px;
+    z-index: 50;
+    pointer-events: auto;
+    background: var(--bg-white);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03),
+                0 2px 4px rgba(0, 0, 0, 0.05),
+                0 12px 24px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+body.dark-mode .floating-nav-bar {
+    background: rgba(17, 24, 39, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 -20px 80px -20px rgba(255, 255, 255, 0.2) inset;
+}
+
+.floating-nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 9999px;
+}
+
+.nav-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 9999px;
+    text-decoration: none;
+    color: currentColor;
+    transition: all 0.3s ease;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.nav-icon-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+}
+
+.nav-icon-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--primary-color);
+}
+
+body.dark-mode .nav-icon-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.floating-nav-divider {
+    width: 1px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 0.5rem 0;
+}
+
+body.dark-mode .floating-nav-divider {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sun-icon,
+.moon-icon {
+    transition: all 0.3s ease;
+}
+
+.moon-icon.hidden {
+    display: none;
+}
+
+/* Floating Bottom Blur */
+/* .floating-bottom-blur {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4rem;
+    width: 100%;
+    background: linear-gradient(to bottom, var(--bg-white), transparent);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    -webkit-mask-image: linear-gradient(to top, black, transparent);
+    mask-image: linear-gradient(to top, black, transparent);
+    pointer-events: none;
+    z-index: 40;
+} */
+
+body.dark-mode .floating-bottom-blur {
+    background: linear-gradient(to bottom, var(--bg-white), transparent);
+}

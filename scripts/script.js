@@ -15,6 +15,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Dark Mode Toggle
 function initDarkMode() {
     const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const floatingThemeToggle = document.getElementById('floating-theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
     const themeText = document.getElementById('theme-text');
     
@@ -26,10 +27,11 @@ function initDarkMode() {
         document.body.classList.add('dark-mode');
         themeIcon.textContent = '☀️';
         if (themeText) themeText.textContent = 'Light';
+        updateFloatingThemeIcon();
     }
     
-    // Toggle dark mode
-    darkModeToggle.addEventListener('click', () => {
+    // Toggle dark mode function
+    const toggleDarkMode = () => {
         document.body.classList.toggle('dark-mode');
         
         if (document.body.classList.contains('dark-mode')) {
@@ -41,7 +43,25 @@ function initDarkMode() {
             themeIcon.textContent = '🌙';
             if (themeText) themeText.textContent = 'Dark';
         }
-    });
+        updateFloatingThemeIcon();
+    };
+    
+    // Toggle dark mode on both buttons
+    if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
+    if (floatingThemeToggle) floatingThemeToggle.addEventListener('click', toggleDarkMode);
+}
+
+function updateFloatingThemeIcon() {
+    const sunIcon = document.querySelector('.sun-icon');
+    const moonIcon = document.querySelector('.moon-icon');
+    
+    if (document.body.classList.contains('dark-mode')) {
+        sunIcon?.classList.add('hidden');
+        moonIcon?.classList.remove('hidden');
+    } else {
+        sunIcon?.classList.remove('hidden');
+        moonIcon?.classList.add('hidden');
+    }
 }
 
 // Starfall Background Animation

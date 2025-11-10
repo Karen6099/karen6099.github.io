@@ -1,0 +1,89 @@
+/* Global CSS Variables */
+:root {
+  --color-primary: #667eea;
+  --color-secondary: #764ba2;
+  --color-text: #2d3748;
+  --color-light: #f7fafc;
+  --color-bg: #ffffff;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] {
+  --color-primary: #667eea;
+  --color-secondary: #764ba2;
+  --color-text: #e2e8f0;
+  --color-light: #1a202c;
+  --color-bg: #0f172a;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Floating bottom blur */
+.floating-bottom-blur {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.2));
+  pointer-events: none;
+  filter: blur(40px);
+  z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 10px;
+  }
+}
