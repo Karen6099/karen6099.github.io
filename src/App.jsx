@@ -4,8 +4,7 @@ import StarField from './components/Animations/StarField';
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
 import About from './components/About/About';
-import Projects from './components/Projects/Projects';
-import Skills from './components/Skills/Skills';
+import FlightRadar from './components/FlightRadar/FlightRadar';
 import Contact from './components/Contact/Contact';
 import FloatingNav from './components/FloatingNav/FloatingNav';
 import './App.css';
@@ -18,8 +17,7 @@ function App() {
       <Navbar />
       <Hero />
       <About />
-      <Projects />
-      <Skills />
+      <FlightRadar />
       <Contact />
       <FloatingNav />
       <div className="floating-bottom-blur"></div>
