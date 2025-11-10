@@ -12,6 +12,62 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// Dark Mode Toggle
+function initDarkMode() {
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const themeText = document.getElementById('theme-text');
+    
+    // Check for saved theme preference or default to light mode
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    
+    // Apply saved theme
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeIcon.textContent = '☀️';
+        if (themeText) themeText.textContent = 'Light';
+    }
+    
+    // Toggle dark mode
+    darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        
+        if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+            themeIcon.textContent = '☀️';
+            if (themeText) themeText.textContent = 'Light';
+        } else {
+            localStorage.setItem('theme', 'light');
+            themeIcon.textContent = '🌙';
+            if (themeText) themeText.textContent = 'Dark';
+        }
+    });
+}
+
+// Starfall Background Animation
+function createStarfield() {
+    const starCount = 100;
+    
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star-fall';
+        
+        // Random horizontal position
+        const randomLeft = Math.random() * window.innerWidth;
+        const randomDelay = Math.random() * 10;
+        const randomDuration = 5 + Math.random() * 10;
+        const randomDrift = (Math.random() - 0.5) * 300;
+        
+        star.style.left = randomLeft + 'px';
+        star.style.animationDelay = randomDelay + 's';
+        star.style.animationDuration = randomDuration + 's';
+        star.style.setProperty('--tx', randomDrift + 'px');
+        star.style.opacity = Math.random() * 0.6 + 0.4;
+        
+        document.body.appendChild(star);
+    }
+}
+
 // Add animation on scroll
 const observerOptions = {
     threshold: 0.1,
@@ -152,7 +208,9 @@ class BouncingDVD {
 
 // Initialize bouncing DVD when page loads
 window.addEventListener('load', () => {
+    createStarfield();
     new BouncingDVD();
+    initDarkMode();
 });
 
 console.log('Portfolio page loaded successfully!');
