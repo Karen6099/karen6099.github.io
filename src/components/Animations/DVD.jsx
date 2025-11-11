@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+import { useDVD } from '../../contexts/DVDContext';
 import './DVD.css';
 
 const DVD = () => {
+  const { isDVDVisible } = useDVD();
   const dvdRef = useRef(null);
   const [position, setPosition] = useState({ 
     x: Math.random() * (window.innerWidth - 100), 
@@ -14,6 +16,10 @@ const DVD = () => {
   const hueRotationsRef = useRef([0, 45, 90, 135, 180, 225, 270, 315]);
 
   useEffect(() => {
+    if (!isDVDVisible) {
+      return;
+    }
+
     const animate = () => {
       setPosition(prev => {
         let newX = prev.x + velocityRef.current.vx;
@@ -42,7 +48,7 @@ const DVD = () => {
 
     const frameId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(frameId);
-  }, []);
+  }, [isDVDVisible]);
 
   const changeColor = () => {
     if (dvdRef.current) {
@@ -52,6 +58,10 @@ const DVD = () => {
       dvdRef.current.style.filter = `hue-rotate(${randomHue}deg) saturate(1.2)`;
     }
   };
+
+  if (!isDVDVisible) {
+    return null;
+  }
 
   return (
     <div

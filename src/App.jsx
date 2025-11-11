@@ -1,5 +1,6 @@
 import { ThemeProvider } from './contexts/ThemeContext';
 import { StarfieldProvider } from './contexts/StarfieldContext';
+import { DVDProvider } from './contexts/DVDContext';
 import DVD from './components/Animations/DVD';
 import StarField from './components/Animations/StarField';
 import Navbar from './components/Navbar/Navbar';
@@ -14,15 +15,17 @@ function App() {
   return (
     <ThemeProvider>
       <StarfieldProvider>
-        <StarField />
-        <DVD />
-        <Navbar />
-        <Hero />
-        <About />
-        <FlightRadar />
-        {/* <Contact /> */}
-        <FloatingNav />
-        <div className="floating-bottom-blur"></div>
+        <DVDProvider>
+          <StarField />
+          <DVD />
+          <Navbar />
+          <Hero />
+          <About />
+          <FlightRadar />
+          {/* <Contact /> */}
+          <FloatingNav />
+          <div className="floating-bottom-blur"></div>
+        </DVDProvider>
       </StarfieldProvider>
     </ThemeProvider>
   );

@@ -1,10 +1,12 @@
 import { useTheme } from '../../contexts/ThemeContext';
 import { useStarfield } from '../../contexts/StarfieldContext';
+import { useDVD } from '../../contexts/DVDContext';
 import './FloatingNav.css';
 
 const FloatingNav = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const { toggleStarfield } = useStarfield();
+  const { toggleDVD } = useDVD();
 
   return (
     <div className="floating-nav-bar">
@@ -41,6 +43,17 @@ const FloatingNav = () => {
 
       {/* Divider */}
       <div className="floating-nav-divider"></div>
+
+      {/* DVD Toggle */}
+      <div className="floating-nav-item">
+        <button className="nav-icon-btn" title="Toggle DVD" onClick={toggleDVD}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"></circle>
+            <circle cx="12" cy="12" r="6" stroke="currentColor" strokeWidth="2"></circle>
+            <circle cx="12" cy="12" r="2" fill="currentColor"></circle>
+          </svg>
+        </button>
+      </div>
 
       {/* Starfield Toggle */}
       <div className="floating-nav-item">
