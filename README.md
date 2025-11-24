@@ -6,19 +6,6 @@ A modern, interactive React portfolio website featuring glassmorphic design, dar
 
 - **Modern Glassmorphic Design**: Frosted glass effect with blur and transparency
 - **Dark Mode Toggle**: Toggle between light and dark themes with persistent storage
-- **Interactive Animations**: Bouncing DVD logo with color-changing effects
-- **Starfall Background**: Animated falling stars with customizable visibility
-- **DVD Logo Toggle**: Show/hide the bouncing DVD animation from floating nav
-- **Responsive Layout**: Fully responsive design that works on all devices
-- **Floating Navigation Bar**: Fixed bottom nav with home, social links, and toggles
-- **Smooth Scrolling**: Navigate smoothly between sections with sticky navbar
-- **Flight Radar Integration**: Embedded Flightradar24 tracking display
-- **Contact Section**: Easy access to GitHub, LinkedIn, and other social links
-- **Component-Based Architecture**: Modular React components for maintainability
-- **Custom Hooks**: Reusable logic for dark mode and scroll animations
-- **Context API**: Global state management for theme and animation visibility
-
-## 🛠️ Technologies Used
 
 - **React 18** - Component-based UI framework
 - **CSS3** - Advanced styling with animations and gradients
@@ -87,6 +74,15 @@ src/
 │   │   │                    # Home | GitHub | LinkedIn | DVD Toggle | Starfield Toggle | Dark Mode Toggle
 │   │   ├── FloatingNav.jsx
 │   │   └── FloatingNav.css
+│   ├── Projects/            # (Unused) Projects showcase section
+│   │   ├── Projects.jsx
+│   │   └── Projects.css
+│   ├── Skills/              # (Unused) Skills display section
+│   │   ├── Skills.jsx
+│   │   └── Skills.css
+│   ├── NotFound/            # (Unused) 404 Page component
+│   │   ├── NotFound.jsx
+│   │   └── NotFound.css
 │   └── Animations/          # Animation components
 │       ├── DVD/
 │       │   ├── DVD.jsx      # Bouncing DVD logo with physics
@@ -164,7 +160,7 @@ Edit `src/components/Navbar/Navbar.jsx` to customize navigation links:
   <li><a href="#home">Home</a></li>
   <li><a href="#about">About</a></li>
   <li><a href="#flights">Flights</a></li>
-  <li><a href="#contact">Contact</a></li>
+  {/* <li><a href="#contact">Contact</a></li> */}
 </ul>
 ```
 
