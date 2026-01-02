@@ -1,20 +1,18 @@
 .skills {
   padding: 4rem 0;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  background: var(--color-bg);
 }
 
 [data-theme="dark"] .skills {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.02) 0%, rgba(118, 75, 162, 0.02) 100%);
+  background: var(--color-bg);
 }
 
 .skills h2 {
   font-size: 2.5rem;
   margin-bottom: 3rem;
   text-align: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-text);
+  font-weight: bold;
 }
 
 .skills-grid {

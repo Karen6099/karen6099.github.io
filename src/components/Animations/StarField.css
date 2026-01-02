@@ -3,9 +3,9 @@
   top: -10px;
   width: 2px;
   height: 2px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(31, 41, 55, 0.6);
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 4px rgba(31, 41, 55, 0.4);
   pointer-events: none;
   z-index: 1;
   animation: fall linear infinite;
@@ -16,9 +16,11 @@
     opacity: 1;
     transform: translateY(0) translateX(0);
   }
+
   90% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
     transform: translateY(100vh) translateX(var(--tx, 0px));
@@ -26,6 +28,6 @@
 }
 
 [data-theme="dark"] .star-fall {
-  background-color: rgba(200, 200, 255, 0.8);
-  box-shadow: 0 0 10px rgba(150, 150, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
 }
