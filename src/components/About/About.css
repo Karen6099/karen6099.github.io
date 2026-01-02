@@ -1,35 +1,33 @@
 .about {
   padding: 4rem 0;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  background: var(--color-bg);
 }
 
 [data-theme="dark"] .about {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.02) 0%, rgba(118, 75, 162, 0.02) 100%);
+  background: var(--color-bg);
 }
 
 .about h2 {
   font-size: 2.5rem;
   margin-bottom: 3rem;
   text-align: center;
-  color: white;
-  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  color: var(--color-text);
   font-weight: bold;
 }
 
 .about-content {
-  background: rgba(255, 255, 255, 0.5);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background: var(--color-bg);
   padding: 3rem;
   border-radius: 20px;
   box-shadow: var(--shadow-md);
   max-width: 700px;
   margin: 0 auto;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
+
 [data-theme="dark"] .about-content {
-  background: rgba(30, 27, 76, 0.5);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background: var(--color-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 
@@ -37,8 +35,7 @@
   font-size: 1.1rem;
   line-height: 1.8;
   margin-bottom: 1.5rem;
-  color: white;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  color: var(--color-text);
 }
 
 @media (max-width: 768px) {

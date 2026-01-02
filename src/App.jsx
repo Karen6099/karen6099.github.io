@@ -5,7 +5,7 @@ import DVD from './components/Animations/DVD';
 import StarField from './components/Animations/StarField';
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
-import About from './components/About/About';
+// import About from './components/About/About';
 import FlightRadar from './components/FlightRadar/FlightRadar';
 // import Contact from './components/Contact/Contact';
 import FloatingNav from './components/FloatingNav/FloatingNav';
@@ -20,7 +20,7 @@ function App() {
           <DVD />
           <Navbar />
           <Hero />
-          <About />
+          {/* <About /> */}
           <FlightRadar />
           {/* <Contact /> */}
           <FloatingNav />

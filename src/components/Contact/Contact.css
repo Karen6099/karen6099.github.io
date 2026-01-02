@@ -6,21 +6,19 @@
   font-size: 2.5rem;
   margin-bottom: 3rem;
   text-align: center;
-  color: white;
-  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  color: var(--color-text);
   font-weight: bold;
 }
 
 .contact-content {
-  background: rgba(255, 255, 255, 0.5);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background: var(--color-bg);
   padding: 3rem;
   border-radius: 20px;
   box-shadow: var(--shadow-md);
   max-width: 700px;
   margin: 0 auto;
   text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] .contact-content {
@@ -31,8 +29,7 @@
   font-size: 1.1rem;
   line-height: 1.8;
   margin-bottom: 2rem;
-  color: white;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  color: var(--color-text);
   text-align: center;
 }
 
