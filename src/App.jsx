@@ -7,6 +7,7 @@ import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
 // import About from './components/About/About';
 import FlightRadar from './components/FlightRadar/FlightRadar';
+import Bowl from './components/Bowl/Bowl';
 // import Contact from './components/Contact/Contact';
 import FloatingNav from './components/FloatingNav/FloatingNav';
 import './App.css';
@@ -22,6 +23,7 @@ function App() {
           <Hero />
           {/* <About /> */}
           <FlightRadar />
+          <Bowl />
           {/* <Contact /> */}
           <FloatingNav />
           <div className="floating-bottom-blur"></div>
