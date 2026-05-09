@@ -1,6 +1,11 @@
 .friendship-meter {
   padding: 60px 20px;
   min-height: 100vh;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+  transition: background 0.3s ease;
+}
+
+[data-theme="dark"] .friendship-meter {
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
 }
 
@@ -28,8 +33,10 @@
 
 .friendship-header p {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text);
   margin: 0;
+  opacity: 0.8;
+  transition: color 0.3s ease;
 }
 
 /* Questions Grid */
@@ -42,27 +49,39 @@
 }
 
 .question-group {
-  background: rgba(255, 255, 255, 0.05);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-light);
+  border: 1px solid rgba(102, 126, 234, 0.2);
   border-radius: 16px;
   padding: 25px;
   transition: all 0.3s ease;
   transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .question-group {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
 }
 
 .question-group:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .question-group:hover {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   transform: translateY(-5px);
 }
 
 .question-group h3 {
   margin: 0 0 20px 0;
   font-size: 1.1rem;
-  color: #fff;
+  color: var(--color-text);
   font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .options {
@@ -72,9 +91,9 @@
 }
 
 .option-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.8);
+  background: var(--color-bg);
+  border: 2px solid var(--color-text);
+  color: var(--color-text);
   padding: 12px 16px;
   border-radius: 10px;
   cursor: pointer;
@@ -82,34 +101,63 @@
   transition: all 0.3s ease;
   text-align: left;
   font-weight: 500;
+  opacity: 0.6;
+}
+
+[data-theme="dark"] .option-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  opacity: 0.8;
 }
 
 .option-btn:hover {
+  background: var(--color-light);
+  border-color: var(--color-primary);
+  color: var(--color-text);
+  opacity: 1;
+}
+
+[data-theme="dark"] .option-btn:hover {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.3);
   color: #fff;
 }
 
-.option-btn.active {
-  background: linear-gradient(135deg, #ff006e, #8338ec);
-  border-color: #ff006e;
+.option-btn.selected {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  color: var(--color-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
+  opacity: 1;
+}
+
+[data-theme="dark"] .option-btn.selected {
+  background: linear-gradient(135deg, rgba(255, 0, 110, 0.3), rgba(131, 56, 236, 0.3));
+  border-color: rgba(255, 0, 110, 0.4);
   color: #fff;
-  box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
 }
 
 /* Calculate Button */
 .calculate-btn {
   width: 100%;
   padding: 16px;
-  background: linear-gradient(135deg, rgba(255, 0, 110, 0.3), rgba(131, 56, 236, 0.3));
-  border: 2px solid rgba(255, 0, 110, 0.4);
-  color: #fff;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  color: var(--color-primary);
   font-size: 1.1rem;
   font-weight: 600;
   border-radius: 12px;
   cursor: not-allowed;
   transition: all 0.3s ease;
   opacity: 0.5;
+}
+
+[data-theme="dark"] .calculate-btn {
+  background: linear-gradient(135deg, rgba(255, 0, 110, 0.3), rgba(131, 56, 236, 0.3));
+  border-color: rgba(255, 0, 110, 0.4);
+  color: #fff;
 }
 
 .calculate-btn:disabled {
@@ -119,14 +167,20 @@
 .calculate-btn.ready {
   cursor: pointer;
   opacity: 1;
-  background: linear-gradient(135deg, #ff006e, #8338ec);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   border-color: transparent;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+}
+
+[data-theme="dark"] .calculate-btn.ready {
+  background: linear-gradient(135deg, #ff006e, #8338ec);
   box-shadow: 0 8px 24px rgba(255, 0, 110, 0.3);
 }
 
 .calculate-btn.ready:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(255, 0, 110, 0.4);
+  box-shadow: 0 12px 32px rgba(102, 126, 234, 0.4);
 }
 
 /* Results Overlay */
@@ -136,7 +190,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   display: flex;
@@ -147,9 +201,13 @@
   animation: fadeIn 0.3s ease;
 }
 
+[data-theme="dark"] .results-overlay {
+  background: rgba(0, 0, 0, 0.7);
+}
+
 .results-card {
-  background: linear-gradient(135deg, rgba(30, 30, 46, 0.95), rgba(50, 50, 70, 0.95));
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-light);
+  border: 1px solid rgba(102, 126, 234, 0.2);
   border-radius: 20px;
   padding: 40px;
   max-width: 600px;
@@ -158,16 +216,25 @@
   overflow-y: auto;
   position: relative;
   animation: slideUp 0.4s ease;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  color: var(--color-text);
 }
 
+[data-theme="dark"] .results-card {
+  background: linear-gradient(135deg, rgba(30, 30, 46, 0.95), rgba(50, 50, 70, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  box-shadow: 0 12px 32px rgba(255, 0, 110, 0.4);
+}
+
+/* Close Button */
 .close-btn {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: #fff;
+  background: var(--color-bg);
+  border: 1px solid var(--color-text);
+  color: var(--color-text);
   font-size: 1.5rem;
   width: 40px;
   height: 40px;
@@ -177,22 +244,38 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0.6;
+}
+
+[data-theme="dark"] .close-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
 }
 
 .close-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
+  opacity: 1;
   transform: rotate(90deg);
+}
+
+[data-theme="dark"] .close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Compatibility Display */
 .compatibility-display {
   text-align: center;
   padding: 30px;
-  border: 3px solid;
+  border: 3px solid var(--color-primary);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.02);
   margin-bottom: 30px;
   animation: pulse 0.8s ease;
+}
+
+[data-theme="dark"] .compatibility-display {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .compatibility-score {
@@ -200,9 +283,14 @@
   font-weight: 800;
   margin: 0 0 15px 0;
   text-shadow: 0 0 30px currentColor;
+  color: var(--color-primary);
 }
 
-.tier-badge {
+[data-theme="dark"] .compatibility-score {
+  color: #ff006e;
+}
+
+.tier-message {
   display: inline-block;
   padding: 12px 24px;
   border-radius: 50px;
@@ -211,13 +299,22 @@
   font-size: 1.1rem;
   margin: 0 0 15px 0;
   letter-spacing: 0.5px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
 }
 
-.tier-message {
-  font-size: 1.2rem;
+[data-theme="dark"] .tier-message {
+  background: linear-gradient(135deg, #ff006e, #8338ec);
+}
+
+.compatibility-text {
+  color: var(--color-text);
+  margin: 0 0 20px 0;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+[data-theme="dark"] .compatibility-text {
   color: rgba(255, 255, 255, 0.9);
-  margin: 0;
-  font-weight: 500;
 }
 
 /* Breakdown */
@@ -226,9 +323,14 @@
 }
 
 .compatibility-breakdown h4 {
-  color: #fff;
+  color: var(--color-text);
   margin: 0 0 20px 0;
   font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+[data-theme="dark"] .compatibility-breakdown h4 {
+  color: #fff;
 }
 
 .breakdown-grid {
@@ -249,47 +351,72 @@
 .bar-container {
   width: 100%;
   height: 8px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-primary);
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 8px;
+  opacity: 0.2;
+}
+
+[data-theme="dark"] .bar-container {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .bar-fill {
   height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
   border-radius: 10px;
-  transition: width 0.6s ease;
+  transition: width 0.5s ease;
+}
+
+[data-theme="dark"] .bar-fill {
+  background: linear-gradient(90deg, #ff006e, #8338ec);
 }
 
 .points-label {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text);
   font-weight: 600;
+  opacity: 0.7;
+  transition: color 0.3s ease;
+}
+
+[data-theme="dark"] .points-label {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* Results Footer */
 .results-footer {
-  text-align: center;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-bg);
   border-radius: 12px;
   margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+}
+
+[data-theme="dark"] .results-footer {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .results-footer p {
   margin: 0;
   font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text);
   font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+[data-theme="dark"] .results-footer p {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* Retake Button */
 .retake-btn {
   width: 100%;
   padding: 14px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
+  background: var(--color-bg);
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
   font-size: 1rem;
   font-weight: 600;
   border-radius: 10px;
@@ -297,9 +424,22 @@
   transition: all 0.3s ease;
 }
 
+[data-theme="dark"] .retake-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
 .retake-btn:hover {
+  background: var(--color-light);
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+}
+
+[data-theme="dark"] .retake-btn:hover {
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
 }
 
 /* Animations */
@@ -307,6 +447,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -317,6 +458,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -324,9 +466,12 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.95;
   }

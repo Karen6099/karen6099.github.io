@@ -5,18 +5,6 @@ const FriendshipMeter = () => {
   const [answers, setAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
 
-  // Karen's traits (you can customize these!)
-  const KarenProfile = {
-    os: 'mac',
-    memeKnowledge: 'chronically-online',
-    sleepSchedule: 'questionable',
-    chaoticEnergy: 'high',
-    coffeePerson: 'never',
-    codeLanguage: 'python',
-    communityVibes: 'discord',
-    workStyle: 'deadline-driven'
-  };
-
   const categories = [
     {
       id: 'os',
@@ -77,7 +65,7 @@ const FriendshipMeter = () => {
       question: '💬 Where do you vibe?',
       options: [
         { value: 'discord', label: 'Discord (the main character energy)', points: 100 },
-        { value: 'teams', label: 'Teams (professional settings)', points: -100 },
+        { value: 'teams', label: 'Teams (professional settings)', points: 0 },
         { value: 'irl', label: 'In-person only (balanced human)', points: 40 }
       ]
     },
@@ -101,7 +89,6 @@ const FriendshipMeter = () => {
 
   const calculateResults = () => {
     let totalPoints = 0;
-    let matchedCategories = 0;
     const breakdown = {};
 
     categories.forEach(category => {
