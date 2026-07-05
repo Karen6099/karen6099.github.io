@@ -10,6 +10,7 @@ A modern, interactive React portfolio website featuring a clean minimalist desig
     - **Starfield**: Falling stars visible in both light (dark gray stars) and dark (white stars) modes.
     - **DVD Logo**: Bouncing DVD logo animation.
 - **Flight Tracking**: Integration with FlightRadar24.
+- **Visitor Tracking**: A shared visit counter plus approximate IP-based location lookup.
 - **Floating Navigation**: A sleek floating bar for easy access to animations and theme toggles.
 
 ## 🛠 Tech Stack
@@ -99,6 +100,21 @@ Control animation visibility from the floating nav bar:
 - **Dark Mode**: Click the sun/moon icon.
 - **Starfield**: Click the star icon.
 - **DVD Animation**: Click the DVD icon.
+
+### Visitor Tracking
+The site includes a visit tracker powered by an external counter service and a coarse geolocation lookup.
+
+Optional environment variables:
+
+- `REACT_APP_COUNTAPI_NAMESPACE` - overrides the shared counter namespace.
+- `REACT_APP_COUNTAPI_KEY` - overrides the shared counter key.
+- `REACT_APP_VISITOR_LOG_ENDPOINT` - your own backend endpoint for storing page-view events.
+
+Important notes:
+
+- Location is approximate and derived from the visitor IP address.
+- Exact street-level location is not available from a normal website.
+- If the external services are unavailable, the tracker falls back to a browser-local count.
 
 ## 🌙 Dark Mode
 

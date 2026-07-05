@@ -1,8 +1,69 @@
-.floating-nav-bar {
+.floating-nav-shell {
   position: fixed;
-  bottom: 0;
   left: 50%;
-  transform: translateX(-50%) translateY(-1rem);
+  bottom: 0.75rem;
+  transform: translateX(-50%);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  pointer-events: none;
+}
+
+.section-launcher {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.55rem;
+  pointer-events: auto;
+}
+
+.launch-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.65rem 0.95rem;
+  border: 0;
+  border-radius: 9999px;
+  color: #ffffff;
+  background: linear-gradient(180deg, #7c8ff7 0%, #4f67e0 100%);
+  box-shadow: 0 10px 0 #3142a3, 0 18px 28px rgba(49, 66, 163, 0.28);
+  cursor: pointer;
+  transform: perspective(700px) rotateX(18deg);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  pointer-events: auto;
+}
+
+.launch-button:hover {
+  transform: perspective(700px) rotateX(10deg) translateY(-3px);
+  box-shadow: 0 13px 0 #3142a3, 0 22px 32px rgba(49, 66, 163, 0.34);
+  filter: brightness(1.05);
+}
+
+.launch-button:active {
+  transform: perspective(700px) rotateX(4deg) translateY(4px);
+  box-shadow: 0 6px 0 #3142a3, 0 12px 20px rgba(49, 66, 163, 0.24);
+}
+
+.launch-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.launch-label {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.floating-nav-bar {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  transform: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -94,6 +155,18 @@
 }
 
 @media (max-width: 768px) {
+  .floating-nav-shell {
+    gap: 0.45rem;
+  }
+
+  .launch-button {
+    padding: 0.55rem 0.85rem;
+  }
+
+  .launch-label {
+    font-size: 0.75rem;
+  }
+
   .floating-nav-bar {
     gap: 0.25rem;
     padding: 0.4rem;
@@ -111,6 +184,18 @@
 }
 
 @media (max-width: 480px) {
+  .section-launcher {
+    gap: 0.4rem;
+  }
+
+  .launch-button {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .launch-label {
+    font-size: 0.7rem;
+  }
+
   .floating-nav-bar {
     gap: 0.2rem;
     padding: 0.3rem;
