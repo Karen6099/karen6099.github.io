@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { StarfieldProvider } from './contexts/StarfieldContext';
 import { DVDProvider } from './contexts/DVDContext';
@@ -9,11 +10,18 @@ import Hero from './components/Hero/Hero';
 import FlightRadar from './components/FlightRadar/FlightRadar';
 import Bowl from './components/Bowl/Bowl';
 import FriendshipMeter from './components/FriendshipMeter/FriendshipMeter';
+import VisitorTracker from './components/VisitorTracker/VisitorTracker';
 // import Contact from './components/Contact/Contact';
 import FloatingNav from './components/FloatingNav/FloatingNav';
 import './App.css';
 
 function App() {
+  const [activeSection, setActiveSection] = useState(null);
+
+  const revealSection = sectionName => {
+    setActiveSection(sectionName);
+  };
+
   return (
     <ThemeProvider>
       <StarfieldProvider>
@@ -23,11 +31,12 @@ function App() {
           <Navbar />
           <Hero />
           {/* <About /> */}
-          <FlightRadar />
-          <Bowl />
-          <FriendshipMeter />
+          {activeSection === 'flights' ? <FlightRadar /> : null}
+          {activeSection === 'bowl' ? <Bowl /> : null}
+          {activeSection === 'friendship' ? <FriendshipMeter /> : null}
+          {activeSection === 'tracker' ? <VisitorTracker /> : null}
           {/* <Contact /> */}
-          <FloatingNav />
+          <FloatingNav onRevealSection={revealSection} />
           <div className="floating-bottom-blur"></div>
         </DVDProvider>
       </StarfieldProvider>

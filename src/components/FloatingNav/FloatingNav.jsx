@@ -3,25 +3,36 @@ import { useStarfield } from '../../contexts/StarfieldContext';
 import { useDVD } from '../../contexts/DVDContext';
 import './FloatingNav.css';
 
-const FloatingNav = () => {
+const sectionButtons = [
+  { id: 'flights', label: 'Flights', icon: '✈' },
+  { id: 'bowl', label: 'Bowl', icon: '🍜' },
+  { id: 'friendship', label: 'Friends', icon: '👀' },
+  { id: 'tracker', label: 'Tracker', icon: '📍' }
+];
+
+const FloatingNav = ({ onRevealSection }) => {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const { toggleStarfield } = useStarfield();
   const { toggleDVD } = useDVD();
 
   return (
-    <div className="floating-nav-bar">
-      {/* Home */}
-      <div className="floating-nav-item">
-        <a href="#home" className="nav-icon-btn" title="Home">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-          </svg>
-        </a>
+    <div className="floating-nav-shell">
+      <div className="section-launcher">
+        {sectionButtons.map(section => (
+          <button
+            key={section.id}
+            type="button"
+            className="launch-button"
+            onClick={() => onRevealSection(section.id)}
+            title={`Reveal ${section.label}`}
+          >
+            <span className="launch-icon" aria-hidden="true">{section.icon}</span>
+            <span className="launch-label">{section.label}</span>
+          </button>
+        ))}
       </div>
 
-      {/* Divider */}
-      <div className="floating-nav-divider"></div>
+      <div className="floating-nav-bar">
 
       {/* GitHub */}
       <div className="floating-nav-item">
@@ -74,6 +85,7 @@ const FloatingNav = () => {
             <path d="M2.89998 0.499976C2.89998 0.279062 2.72089 0.0999756 2.49998 0.0999756C2.27906 0.0999756 2.09998 0.279062 2.09998 0.499976V1.09998H1.49998C1.27906 1.09998 1.09998 1.27906 1.09998 1.49998C1.09998 1.72089 1.27906 1.89998 1.49998 1.89998H2.09998V2.49998C2.09998 2.72089 2.27906 2.89998 2.49998 2.89998C2.72089 2.89998 2.89998 2.72089 2.89998 2.49998V1.89998H3.49998C3.72089 1.89998 3.89998 1.72089 3.89998 1.49998C3.89998 1.27906 3.72089 1.09998 3.49998 1.09998H2.89998V0.499976ZM5.89998 3.49998C5.89998 3.27906 5.72089 3.09998 5.49998 3.09998C5.27906 3.09998 5.09998 3.27906 5.09998 3.49998V4.09998H4.49998C4.27906 4.09998 4.09998 4.27906 4.09998 4.49998C4.09998 4.72089 4.27906 4.89998 4.49998 4.89998H5.09998V5.49998C5.09998 5.72089 5.27906 5.89998 5.49998 5.89998C5.72089 5.89998 5.89998 5.72089 5.89998 5.49998V4.89998H6.49998C6.72089 4.89998 6.89998 4.72089 6.89998 4.49998C6.89998 4.27906 6.72089 4.09998 6.49998 4.09998H5.89998V3.49998ZM1.89998 6.49998C1.89998 6.27906 1.72089 6.09998 1.49998 6.09998C1.27906 6.09998 1.09998 6.27906 1.09998 6.49998V7.09998H0.499976C0.279062 7.09998 0.0999756 7.27906 0.0999756 7.49998C0.0999756 7.72089 0.279062 7.89998 0.499976 7.89998H1.09998V8.49998C1.09998 8.72089 1.27906 8.89997 1.49998 8.89997C1.72089 8.89997 1.89998 8.72089 1.89998 8.49998V7.89998H2.49998C2.72089 7.89998 2.89998 7.72089 2.89998 7.49998C2.89998 7.27906 2.72089 7.09998 2.49998 7.09998H1.89998V6.49998Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path>
           </svg>
         </button>
+      </div>
       </div>
     </div>
   );
