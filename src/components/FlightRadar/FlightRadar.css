@@ -58,29 +58,15 @@
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
-  border: 2px solid #000000;
-  color: #ffffff;
-  background: #000000;
+  border: 2px solid var(--color-primary);
+  color: #05050a;
+  background: var(--color-primary);
 }
 
 .radar-link a:hover {
-  background: #333333;
-  border-color: #333333;
-  color: #ffffff;
+  filter: brightness(1.1);
   transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-[data-theme="dark"] .radar-link a {
-  border: 2px solid #ffffff;
-  color: #000000;
-  background: #ffffff;
-}
-
-[data-theme="dark"] .radar-link a:hover {
-  background: #e5e5e5;
-  border-color: #e5e5e5;
-  color: #000000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 768px) {

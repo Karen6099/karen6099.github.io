@@ -131,7 +131,7 @@ const Hero = ({ activeSection, onSelectSection, showLegacyBar, onToggleLegacyBar
               <div className="aux-switches">
                 <ToggleSwitch label="DVD" checked={isDVDVisible} onClick={withBlip('secondary', toggleDVD)} />
                 <ToggleSwitch label="Stars" checked={isStarfieldVisible} onClick={withBlip('secondary', toggleStarfield)} />
-                <ToggleSwitch label="Dark" checked={isDarkMode} onClick={withBlip('secondary', toggleDarkMode)} />
+                <ToggleSwitch label="CRT" checked={isDarkMode} onClick={withBlip('secondary', toggleDarkMode)} />
                 <ToggleSwitch label="Classic Bar" checked={showLegacyBar} onClick={withBlip('secondary', onToggleLegacyBar)} />
               </div>
             </div>

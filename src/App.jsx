@@ -4,7 +4,6 @@ import { StarfieldProvider } from './contexts/StarfieldContext';
 import { DVDProvider } from './contexts/DVDContext';
 import DVD from './components/Animations/DVD';
 import StarField from './components/Animations/StarField';
-import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
 // import About from './components/About/About';
 // import Contact from './components/Contact/Contact';
@@ -21,7 +20,6 @@ function App() {
         <DVDProvider>
           <StarField />
           <DVD />
-          <Navbar />
           <Hero
             activeSection={activeSection}
             onSelectSection={setActiveSection}
