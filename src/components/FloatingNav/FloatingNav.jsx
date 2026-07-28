@@ -23,31 +23,31 @@ const FloatingNav = ({ onRevealSection }) => {
 
   return (
     <div className="floating-nav-shell">
-      <div className="control-panel">
-        <span className="panel-screw panel-screw--tl" aria-hidden="true" />
-        <span className="panel-screw panel-screw--tr" aria-hidden="true" />
-        <span className="panel-screw panel-screw--bl" aria-hidden="true" />
-        <span className="panel-screw panel-screw--br" aria-hidden="true" />
+      <div className="legacy-control-panel">
+        <span className="legacy-panel-screw legacy-panel-screw--tl" aria-hidden="true" />
+        <span className="legacy-panel-screw legacy-panel-screw--tr" aria-hidden="true" />
+        <span className="legacy-panel-screw legacy-panel-screw--bl" aria-hidden="true" />
+        <span className="legacy-panel-screw legacy-panel-screw--br" aria-hidden="true" />
 
-        <div className="arcade-joystick" aria-hidden="true">
-          <span className="joystick-base" />
-          <span className="joystick-stick">
-            <span className="joystick-ball" />
+        <div className="legacy-arcade-joystick" aria-hidden="true">
+          <span className="legacy-joystick-base" />
+          <span className="legacy-joystick-stick">
+            <span className="legacy-joystick-ball" />
           </span>
         </div>
 
-        <div className="section-launcher">
+        <div className="legacy-section-launcher">
           {sectionButtons.map(section => (
-            <div className="arcade-button-unit" key={section.id}>
+            <div className="legacy-arcade-button-unit" key={section.id}>
               <button
                 type="button"
-                className={`arcade-button arcade-button--${section.color}`}
+                className={`legacy-arcade-button legacy-arcade-button--${section.color}`}
                 onClick={withBlip('primary', () => onRevealSection(section.id))}
                 title={`Reveal ${section.label}`}
               >
-                <span className="launch-icon" aria-hidden="true">{section.icon}</span>
+                <span className="legacy-launch-icon" aria-hidden="true">{section.icon}</span>
               </button>
-              <span className="launch-label">{section.label}</span>
+              <span className="legacy-launch-label">{section.label}</span>
             </div>
           ))}
         </div>

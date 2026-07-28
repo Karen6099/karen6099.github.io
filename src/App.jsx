@@ -7,20 +7,13 @@ import StarField from './components/Animations/StarField';
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
 // import About from './components/About/About';
-import FlightRadar from './components/FlightRadar/FlightRadar';
-import Bowl from './components/Bowl/Bowl';
-import FriendshipMeter from './components/FriendshipMeter/FriendshipMeter';
-import VisitorTracker from './components/VisitorTracker/VisitorTracker';
 // import Contact from './components/Contact/Contact';
 import FloatingNav from './components/FloatingNav/FloatingNav';
 import './App.css';
 
 function App() {
   const [activeSection, setActiveSection] = useState(null);
-
-  const revealSection = sectionName => {
-    setActiveSection(sectionName);
-  };
+  const [showLegacyBar, setShowLegacyBar] = useState(false);
 
   return (
     <ThemeProvider>
@@ -29,15 +22,16 @@ function App() {
           <StarField />
           <DVD />
           <Navbar />
-          <Hero />
+          <Hero
+            activeSection={activeSection}
+            onSelectSection={setActiveSection}
+            showLegacyBar={showLegacyBar}
+            onToggleLegacyBar={() => setShowLegacyBar(prev => !prev)}
+          />
           {/* <About /> */}
-          {activeSection === 'flights' ? <FlightRadar /> : null}
-          {activeSection === 'bowl' ? <Bowl /> : null}
-          {activeSection === 'friendship' ? <FriendshipMeter /> : null}
-          {activeSection === 'tracker' ? <VisitorTracker /> : null}
           {/* <Contact /> */}
-          <FloatingNav onRevealSection={revealSection} />
-          <div className="floating-bottom-blur"></div>
+          {showLegacyBar && <FloatingNav onRevealSection={setActiveSection} />}
+          {showLegacyBar && <div className="floating-bottom-blur"></div>}
         </DVDProvider>
       </StarfieldProvider>
     </ThemeProvider>
