@@ -14,7 +14,7 @@ const Bowl = () => {
             allow="autoplay; fullscreen; xr-spatial-tracking"
             src="https://sketchfab.com/models/9210f13e03c84423899e90d62f173d16/embed?autospin=1&autostart=1&preload=1"
           ></iframe>
-          <p style={{ fontSize: '13px', fontWeight: 'normal', margin: '5px', color: '#4A4A4A' }}>
+          <p style={{ fontSize: '13px', fontWeight: 'normal', margin: '5px', color: 'var(--color-text)', opacity: 0.75 }}>
             <a
               href="https://sketchfab.com/3d-models/bowl-of-noodles-9210f13e03c84423899e90d62f173d16?utm_medium=embed&utm_campaign=share-popup&utm_content=9210f13e03c84423899e90d62f173d16"
               target="_blank"

@@ -1,24 +1,27 @@
-/* Global CSS Variables */
+/* Global CSS Variables — neon arcade palette.
+   :root = cyan/magenta variant, [data-theme="dark"] = green/amber CRT
+   variant. The "CRT" switch on the cabinet flips between the two; there is
+   no white/light variant left. */
 :root {
-  --color-primary: #667eea;
-  --color-secondary: #764ba2;
-  --color-text: #1f2937;
-  --color-light: #f7fafc;
-  --color-bg: #ffffff;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.15);
+  --color-primary: #00fff2;
+  --color-secondary: #ff2fd0;
+  --color-text: #eafeff;
+  --color-light: #10202f;
+  --color-bg: #071019;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 10px rgba(0, 255, 242, 0.12);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.55);
 }
 
 [data-theme="dark"] {
-  --color-primary: #667eea;
-  --color-secondary: #764ba2;
-  --color-text: #e2e8f0;
-  --color-light: #1a202c;
-  --color-bg: #0f172a;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.5);
+  --color-primary: #39ff14;
+  --color-secondary: #ffe600;
+  --color-text: #eaffea;
+  --color-light: #0e1f10;
+  --color-bg: #060d06;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 10px rgba(57, 255, 20, 0.12);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.6);
 }
 
 * {
@@ -30,6 +33,7 @@
 html {
   -webkit-scroll-behavior: smooth;
   scroll-behavior: smooth;
+  background: #050508;
 }
 
 body {
@@ -39,11 +43,6 @@ body {
   background-attachment: fixed;
   transition: background-color 0.3s ease, color 0.3s ease;
   overflow-x: hidden;
-}
-
-[data-theme="dark"] body {
-  background: var(--color-bg);
-  background-attachment: fixed;
 }
 
 .container {
@@ -70,21 +69,45 @@ body {
   animation: fadeInUp 0.6s ease forwards;
 }
 
-/* Floating bottom blur */
+/* Floating bottom blur (behind the legacy "Classic Bar" overlay) */
 .floating-bottom-blur {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   height: 200px;
-  background: linear-gradient(to bottom, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.2));
+  background: linear-gradient(to bottom, rgba(0, 255, 242, 0.08), rgba(255, 47, 208, 0.16));
   pointer-events: none;
   filter: blur(40px);
   z-index: 1;
 }
 
 [data-theme="dark"] .floating-bottom-blur {
-  background: transparent;
+  background: linear-gradient(to bottom, rgba(57, 255, 20, 0.08), rgba(255, 230, 0, 0.14));
+}
+
+/* Respect users who ask for less motion. Decorative loops are switched off
+   entirely; DVD and StarField are additionally skipped in JS so their loops
+   never start. Content still animates in, just instantly. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .doodle,
+  .marquee-light,
+  .screen-scanlines,
+  .insert-coin,
+  .joystick-stick,
+  .legacy-joystick-stick,
+  .snake-food {
+    animation: none !important;
+  }
 }
 
 /* Responsive */

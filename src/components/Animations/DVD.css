@@ -1,9 +1,11 @@
 .dvd-logo {
-  position: fixed;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 80px;
   height: 80px;
-  z-index: 100;
   pointer-events: none;
+  will-change: transform;
 }
 
 .dvd-image {
