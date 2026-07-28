@@ -1,0 +1,216 @@
+.snake-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  height: 100%;
+  padding: 0.75rem 1rem 1rem;
+}
+
+.snake-hud {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 640px;
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: var(--color-primary);
+  text-shadow: 0 0 8px currentColor;
+}
+
+/* Takes the leftover height between the HUD and the D-pad. container-type
+   lets the board size itself against this box in both axes at once, which
+   plain aspect-ratio + max-width/max-height cannot do without breaking the
+   ratio when the clamp kicks in. */
+.snake-board-wrap {
+  container-type: size;
+  /* Definite basis: container-type:size contains the box's own contents, so
+     a content-based `auto` basis would collapse it to zero. */
+  flex: 1 1 0%;
+  min-height: 0;
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.snake-board {
+  position: relative;
+  width: min(100cqw, 100cqh * 24 / 18);
+  aspect-ratio: 24 / 18;
+  border-radius: 8px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 100% calc(100% / 18),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / calc(100% / 24) 100%,
+    rgba(0, 0, 0, 0.45);
+  box-shadow:
+    inset 0 0 0 2px color-mix(in srgb, var(--color-primary) 35%, transparent),
+    inset 0 0 24px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+}
+
+.snake-cell,
+.snake-food {
+  position: absolute;
+  border-radius: 2px;
+}
+
+.snake-cell {
+  background: var(--color-primary);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-primary) 75%, transparent);
+}
+
+.snake-cell--head {
+  background: #ffffff;
+  box-shadow: 0 0 12px var(--color-primary);
+}
+
+.snake-food {
+  background: var(--color-secondary);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--color-secondary);
+  animation: snakeFoodPulse 1s ease-in-out infinite;
+}
+
+@keyframes snakeFoodPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.75); }
+}
+
+/* ---------- Overlay ---------- */
+
+.snake-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.72);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+.snake-overlay-title {
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+  color: var(--color-secondary);
+  text-shadow: 0 0 12px currentColor;
+}
+
+.snake-overlay-score {
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.7rem;
+  color: var(--color-text);
+}
+
+.snake-start-btn {
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 9999px;
+  color: #05050a;
+  background: var(--color-primary);
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--color-primary) 45%, black),
+              0 0 16px color-mix(in srgb, var(--color-primary) 60%, transparent);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  animation: coinBlink 1.2s steps(1) infinite;
+}
+
+.snake-start-btn:hover {
+  filter: brightness(1.1);
+}
+
+.snake-start-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--color-primary) 45%, black);
+}
+
+.snake-hint {
+  font-size: 0.75rem;
+  color: var(--color-text);
+  opacity: 0.7;
+}
+
+/* ---------- Touch D-pad ---------- */
+
+.snake-dpad {
+  display: grid;
+  grid-template-columns: repeat(3, 40px);
+  grid-template-rows: repeat(2, 34px);
+  gap: 0.3rem;
+  justify-content: center;
+}
+
+.dpad-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  background: radial-gradient(circle at 35% 30%, #3c3c48, #1c1c22 75%);
+  box-shadow: 0 3px 0 #0a0a0d, inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.dpad-btn:hover {
+  color: var(--color-primary);
+}
+
+.dpad-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #0a0a0d, inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.dpad-btn--up { grid-column: 2; grid-row: 1; }
+.dpad-btn--left { grid-column: 1; grid-row: 2; }
+.dpad-btn--down { grid-column: 2; grid-row: 2; }
+.dpad-btn--right { grid-column: 3; grid-row: 2; }
+
+@media (max-width: 768px) {
+  .snake-hud {
+    font-size: 0.5rem;
+  }
+
+  .snake-overlay-title {
+    font-size: 0.8rem;
+  }
+
+  .snake-start-btn {
+    font-size: 0.55rem;
+  }
+
+  .snake-hint {
+    font-size: 0.65rem;
+  }
+}
+
+/* The board is landscape; on a portrait phone screen the pad gets the
+   leftover vertical space below it. */
+@media (max-width: 480px) {
+  .snake-game {
+    gap: 0.9rem;
+    padding: 0.5rem 0.6rem 0.75rem;
+  }
+
+  .snake-dpad {
+    grid-template-columns: repeat(3, 48px);
+    grid-template-rows: repeat(2, 42px);
+  }
+}

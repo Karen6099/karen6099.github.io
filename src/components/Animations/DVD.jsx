@@ -1,75 +1,90 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDVD } from '../../contexts/DVDContext';
+import { prefersReducedMotion } from '../../utils/motion';
 import './DVD.css';
+
+const HUE_ROTATIONS = [0, 45, 90, 135, 180, 225, 270, 315];
 
 const DVD = () => {
   const { isDVDVisible } = useDVD();
   const dvdRef = useRef(null);
-  const [position, setPosition] = useState({ 
-    x: Math.random() * (window.innerWidth - 100), 
-    y: Math.random() * (window.innerHeight - 100) 
-  });
-  const velocityRef = useRef({
-    vx: (Math.random() - 0.5) * 6,
-    vy: (Math.random() - 0.5) * 6
-  });
-  const hueRotationsRef = useRef([0, 45, 90, 135, 180, 225, 270, 315]);
 
   useEffect(() => {
-    if (!isDVDVisible) {
-      return;
+    if (!isDVDVisible || prefersReducedMotion()) {
+      return undefined;
     }
 
-    const animate = () => {
-      setPosition(prev => {
-        let newX = prev.x + velocityRef.current.vx;
-        let newY = prev.y + velocityRef.current.vy;
-        const width = 100;
-        const height = 100;
+    const node = dvdRef.current;
+    // Bounce inside the backdrop container rather than the whole viewport,
+    // so the logo stays behind the cabinet instead of covering it.
+    const bounds = node?.parentElement;
+    if (!node || !bounds) {
+      return undefined;
+    }
 
-        // Bounce off walls and change color
-        if (newX <= 0 || newX >= window.innerWidth - width) {
-          velocityRef.current.vx *= -1;
-          changeColor();
-        }
-        if (newY <= 0 || newY >= window.innerHeight - height) {
-          velocityRef.current.vy *= -1;
-          changeColor();
-        }
+    let width = node.offsetWidth;
+    let height = node.offsetHeight;
+    let maxX = Math.max(0, bounds.clientWidth - width);
+    let maxY = Math.max(0, bounds.clientHeight - height);
 
-        return {
-          x: Math.max(0, Math.min(newX, window.innerWidth - width)),
-          y: Math.max(0, Math.min(newY, window.innerHeight - height))
-        };
-      });
+    let x = Math.random() * maxX;
+    let y = Math.random() * maxY;
+    let vx = (Math.random() - 0.5) * 6 || 2;
+    let vy = (Math.random() - 0.5) * 6 || 2;
+    let frameId = null;
 
-      requestAnimationFrame(animate);
+    const changeColor = () => {
+      const hue = HUE_ROTATIONS[Math.floor(Math.random() * HUE_ROTATIONS.length)];
+      node.style.filter = `hue-rotate(${hue}deg) saturate(1.2)`;
     };
 
-    const frameId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(frameId);
-  }, [isDVDVisible]);
+    const measure = () => {
+      width = node.offsetWidth;
+      height = node.offsetHeight;
+      maxX = Math.max(0, bounds.clientWidth - width);
+      maxY = Math.max(0, bounds.clientHeight - height);
+      x = Math.min(x, maxX);
+      y = Math.min(y, maxY);
+    };
 
-  const changeColor = () => {
-    if (dvdRef.current) {
-      const randomHue = hueRotationsRef.current[
-        Math.floor(Math.random() * hueRotationsRef.current.length)
-      ];
-      dvdRef.current.style.filter = `hue-rotate(${randomHue}deg) saturate(1.2)`;
-    }
-  };
+    const animate = () => {
+      x += vx;
+      y += vy;
+
+      if (x <= 0 || x >= maxX) {
+        vx *= -1;
+        x = Math.max(0, Math.min(x, maxX));
+        changeColor();
+      }
+      if (y <= 0 || y >= maxY) {
+        vy *= -1;
+        y = Math.max(0, Math.min(y, maxY));
+        changeColor();
+      }
+
+      // Drive transform directly so the loop doesn't re-render React 60x/sec.
+      node.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      frameId = requestAnimationFrame(animate);
+    };
+
+    window.addEventListener('resize', measure);
+    frameId = requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener('resize', measure);
+      if (frameId !== null) {
+        cancelAnimationFrame(frameId);
+      }
+    };
+  }, [isDVDVisible]);
 
   if (!isDVDVisible) {
     return null;
   }
 
   return (
-    <div
-      ref={dvdRef}
-      className="dvd-logo"
-      style={{ left: `${position.x}px`, top: `${position.y}px` }}
-    >
-      <img src="/dvd.svg" alt="DVD Logo" className="dvd-image" />
+    <div ref={dvdRef} className="dvd-logo">
+      <img src="/dvd.svg" alt="" className="dvd-image" />
     </div>
   );
 };

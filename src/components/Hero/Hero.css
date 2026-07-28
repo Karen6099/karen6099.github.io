@@ -11,6 +11,8 @@
 /* ---------- 3D perspective stage ---------- */
 
 .arcade-perspective {
+  position: relative;
+  z-index: 1;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -18,9 +20,50 @@
   perspective-origin: 50% 15%;
 }
 
+/* ---------- Floating backdrop (doodles, DVD, starfield) ---------- */
+
+.hero-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.doodle {
+  position: absolute;
+  color: var(--color-primary);
+  opacity: 0.3;
+  filter: drop-shadow(0 0 6px currentColor);
+  animation: doodleFloat 20s ease-in-out infinite;
+}
+
+.doodle--alt {
+  color: var(--color-secondary);
+}
+
+.doodle svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes doodleFloat {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(12px, -18px) rotate(6deg); }
+  66% { transform: translate(-10px, 10px) rotate(-5deg); }
+}
+
+/* Gutters are only wide enough to be worth it on large screens. */
+@media (max-width: 1099px) {
+  .doodle {
+    display: none;
+  }
+}
+
 .arcade-machine {
   position: relative;
-  width: min(94vw, 760px);
+  width: min(94vw, 1080px, max(760px, 75vw));
   height: min(88dvh, 940px);
   display: flex;
   flex-direction: column;
@@ -92,6 +135,17 @@
   letter-spacing: 0.15em;
   color: #fff;
   text-shadow: 0 0 6px #fff, 0 0 16px #ff2fd0, 0 0 32px #ff2fd0;
+  /* Also keyed, so the title flickers in when the section changes. */
+  animation: marqueeSwap 0.4s ease-out both;
+}
+
+@keyframes marqueeSwap {
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  40% { opacity: 0.3; }
+  60% { opacity: 1; }
+  75% { opacity: 0.6; }
+  100% { opacity: 1; }
 }
 
 /* ---------- CRT Screen ---------- */
@@ -147,6 +201,51 @@
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+}
+
+/* The game sizes itself to the screen and must never scroll. It needs a
+   definite height all the way down, since .screen-app is only min-height. */
+.screen-content--game {
+  overflow: hidden;
+}
+
+.screen-content--game .screen-app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* Keeps the BACK button at its natural width instead of stretching it. */
+  align-items: center;
+}
+
+.screen-content--game .screen-app-body {
+  flex: 1 1 0%;
+  min-height: 0;
+  width: 100%;
+}
+
+/* Remounted via `key` on every section change, so this replays each time —
+   a short CRT "channel change". */
+.screen-content > .screen-app,
+.screen-content > .hero-content {
+  animation: screenChange 0.35s ease-out both;
+}
+
+@keyframes screenChange {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.4);
+    filter: brightness(2.4);
+  }
+  55% {
+    opacity: 1;
+    transform: scaleY(1.02);
+    filter: brightness(1.25);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+    filter: brightness(1);
+  }
 }
 
 .hero-content {
@@ -364,6 +463,27 @@
   transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
 }
 
+.arcade-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--btn-color);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Driven by a JS-toggled class rather than :active, so the full burst plays
+   even on a very fast click. */
+.arcade-button.is-pressed::after {
+  animation: buttonBurst 0.4s ease-out;
+}
+
+@keyframes buttonBurst {
+  0% { opacity: 0.9; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2.1); }
+}
+
 .arcade-button:hover {
   filter: brightness(1.1);
   transform: translateY(-2px);
@@ -382,6 +502,7 @@
 .arcade-button--yellow { --btn-color: #ffe600; }
 .arcade-button--magenta { --btn-color: #ff2fd0; }
 .arcade-button--green { --btn-color: #39ff14; }
+.arcade-button--orange { --btn-color: #ff7a1a; }
 
 .launch-icon {
   font-size: 1.1rem;

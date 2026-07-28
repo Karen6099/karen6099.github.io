@@ -1,48 +1,38 @@
-import { useEffect } from 'react';
+import { useMemo } from 'react';
 import { useStarfield } from '../../contexts/StarfieldContext';
+import { prefersReducedMotion } from '../../utils/motion';
 import './StarField.css';
+
+const STAR_COUNT = 100;
 
 const StarField = () => {
   const { isStarfieldVisible } = useStarfield();
 
-  useEffect(() => {
-    if (!isStarfieldVisible) {
-      // Remove all stars if starfield is hidden
-      document.querySelectorAll('.star-fall').forEach(star => star.remove());
-      return;
-    }
+  // Randomize once per mount; React handles cleanup on unmount/toggle-off,
+  // so there's no imperative document.body appending or querySelectorAll.
+  const stars = useMemo(
+    () =>
+      Array.from({ length: STAR_COUNT }, () => ({
+        left: `${Math.random() * 100}%`,
+        animationDelay: `${Math.random() * 10}s`,
+        animationDuration: `${5 + Math.random() * 10}s`,
+        opacity: Math.random() * 0.6 + 0.4,
+        '--tx': `${(Math.random() - 0.5) * 300}px`
+      })),
+    []
+  );
 
-    const createStarfield = () => {
-      const starCount = 100;
+  if (!isStarfieldVisible || prefersReducedMotion()) {
+    return null;
+  }
 
-      for (let i = 0; i < starCount; i++) {
-        const star = document.createElement('div');
-        star.className = 'star-fall';
-
-        const randomLeft = Math.random() * window.innerWidth;
-        const randomDelay = Math.random() * 10;
-        const randomDuration = 5 + Math.random() * 10;
-        const randomDrift = (Math.random() - 0.5) * 300;
-
-        star.style.left = randomLeft + 'px';
-        star.style.animationDelay = randomDelay + 's';
-        star.style.animationDuration = randomDuration + 's';
-        star.style.setProperty('--tx', randomDrift + 'px');
-        star.style.opacity = Math.random() * 0.6 + 0.4;
-
-        document.body.appendChild(star);
-      }
-    };
-
-    createStarfield();
-
-    return () => {
-      // Cleanup stars on unmount
-      document.querySelectorAll('.star-fall').forEach(star => star.remove());
-    };
-  }, [isStarfieldVisible]);
-
-  return null;
+  return (
+    <>
+      {stars.map((style, i) => (
+        <span key={i} className="star-fall" style={style} />
+      ))}
+    </>
+  );
 };
 
 export default StarField;

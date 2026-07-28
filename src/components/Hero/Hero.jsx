@@ -1,18 +1,24 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useStarfield } from '../../contexts/StarfieldContext';
 import { useDVD } from '../../contexts/DVDContext';
 import { playArcadeBlip } from '../../utils/sound';
+import DVD from '../Animations/DVD';
+import StarField from '../Animations/StarField';
+import Doodles from '../Animations/Doodles';
 import FlightRadar from '../FlightRadar/FlightRadar';
 import Bowl from '../Bowl/Bowl';
 import FriendshipMeter from '../FriendshipMeter/FriendshipMeter';
 import VisitorTracker from '../VisitorTracker/VisitorTracker';
+import SnakeGame from '../Game/SnakeGame';
 import './Hero.css';
 
 const sectionButtons = [
   { id: 'flights', label: 'Flights', icon: '✈', color: 'cyan', Component: FlightRadar },
   { id: 'bowl', label: 'Bowl', icon: '🍜', color: 'yellow', Component: Bowl },
   { id: 'friendship', label: 'Friends', icon: '👀', color: 'magenta', Component: FriendshipMeter },
-  { id: 'tracker', label: 'Tracker', icon: '📍', color: 'green', Component: VisitorTracker }
+  { id: 'tracker', label: 'Tracker', icon: '📍', color: 'green', Component: VisitorTracker },
+  { id: 'game', label: 'Play', icon: '🕹', color: 'orange', Component: SnakeGame }
 ];
 
 const ToggleSwitch = ({ label, checked, onClick }) => (
@@ -29,16 +35,39 @@ const Hero = ({ activeSection, onSelectSection, showLegacyBar, onToggleLegacyBar
   const { isStarfieldVisible, toggleStarfield } = useStarfield();
   const { isDVDVisible, toggleDVD } = useDVD();
 
-  const withBlip = (variant, handler) => () => {
+  // A short-lived class drives the press burst. :active alone gets cut off
+  // when a click is faster than the animation.
+  const [pressedId, setPressedId] = useState(null);
+  const pressTimerRef = useRef(null);
+
+  useEffect(() => () => clearTimeout(pressTimerRef.current), []);
+
+  const flashPress = useCallback(id => {
+    setPressedId(id);
+    clearTimeout(pressTimerRef.current);
+    pressTimerRef.current = setTimeout(() => setPressedId(null), 400);
+  }, []);
+
+  const withBlip = (variant, handler, id) => () => {
     playArcadeBlip(variant);
+    if (id) {
+      flashPress(id);
+    }
     handler();
   };
 
   const activeButton = sectionButtons.find(section => section.id === activeSection);
   const ActiveComponent = activeButton?.Component;
+  const isGame = activeSection === 'game';
 
   return (
     <section id="home" className="hero">
+      <div className="hero-backdrop" aria-hidden="true">
+        <Doodles />
+        <StarField />
+        <DVD />
+      </div>
+
       <div className="arcade-perspective">
         <div className="arcade-machine">
           <span className="machine-sheen" aria-hidden="true" />
@@ -49,7 +78,7 @@ const Hero = ({ activeSection, onSelectSection, showLegacyBar, onToggleLegacyBar
                 <span key={i} className="marquee-light" style={{ animationDelay: `${i * 0.15}s` }} />
               ))}
             </span>
-            <span className="marquee-title">
+            <span className="marquee-title" key={activeSection ?? 'home'}>
               {ActiveComponent ? activeButton.label.toUpperCase() : 'KAREN'}
             </span>
           </div>
@@ -57,9 +86,9 @@ const Hero = ({ activeSection, onSelectSection, showLegacyBar, onToggleLegacyBar
           <div className="arcade-screen">
             <div className="screen-scanlines" aria-hidden="true" />
             <div className="screen-vignette" aria-hidden="true" />
-            <div className="screen-content">
+            <div className={`screen-content ${isGame ? 'screen-content--game' : ''}`}>
               {ActiveComponent ? (
-                <div className="screen-app">
+                <div className="screen-app" key={activeSection}>
                   <button
                     type="button"
                     className="screen-back-btn"
@@ -72,7 +101,7 @@ const Hero = ({ activeSection, onSelectSection, showLegacyBar, onToggleLegacyBar
                   </div>
                 </div>
               ) : (
-                <div className="hero-content">
+                <div className="hero-content" key="home">
                   <h1>Hi, I'm Karen</h1>
                   <p className="subtitle">Developer | Designer | Creator</p>
                   <p className="insert-coin">▶ INSERT COIN — PRESS A BUTTON BELOW</p>
@@ -100,9 +129,9 @@ const Hero = ({ activeSection, onSelectSection, showLegacyBar, onToggleLegacyBar
                   <div className="arcade-button-unit" key={section.id}>
                     <button
                       type="button"
-                      className={`arcade-button arcade-button--${section.color} ${activeSection === section.id ? 'is-active' : ''}`}
+                      className={`arcade-button arcade-button--${section.color} ${activeSection === section.id ? 'is-active' : ''} ${pressedId === section.id ? 'is-pressed' : ''}`}
                       onClick={withBlip('primary', () =>
-                        onSelectSection(activeSection === section.id ? null : section.id)
+                        onSelectSection(activeSection === section.id ? null : section.id), section.id
                       )}
                       title={`Reveal ${section.label}`}
                     >

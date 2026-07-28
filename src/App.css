@@ -86,6 +86,30 @@ body {
   background: linear-gradient(to bottom, rgba(57, 255, 20, 0.08), rgba(255, 230, 0, 0.14));
 }
 
+/* Respect users who ask for less motion. Decorative loops are switched off
+   entirely; DVD and StarField are additionally skipped in JS so their loops
+   never start. Content still animates in, just instantly. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .doodle,
+  .marquee-light,
+  .screen-scanlines,
+  .insert-coin,
+  .joystick-stick,
+  .legacy-joystick-stick,
+  .snake-food {
+    animation: none !important;
+  }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .container {
