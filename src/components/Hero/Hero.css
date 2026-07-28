@@ -5,25 +5,171 @@
   justify-content: center;
   text-align: center;
   position: relative;
-  padding: 2rem 0;
+  padding: 2rem 0 8rem;
 }
 
-.hero-content {
+/* ---------- Cabinet shell ---------- */
+
+.arcade-cabinet {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 2.25rem;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 30% 0%, #2a2a35 0%, #16161d 45%, #0a0a0f 100%);
+  box-shadow:
+    0 0 0 3px #000,
+    0 0 0 6px #38384a,
+    0 25px 60px rgba(0, 0, 0, 0.6),
+    inset 0 2px 0 rgba(255, 255, 255, 0.06);
   animation: fadeInUp 0.8s ease 0.2s both;
 }
 
+/* ---------- Marquee ---------- */
+
+.arcade-marquee {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1rem 1.1rem;
+  margin-bottom: 1.25rem;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ff2fd0 0%, #a021e6 60%, #4b1e8f 100%);
+  box-shadow:
+    0 0 24px rgba(255, 47, 208, 0.55),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.3),
+    inset 0 3px 0 rgba(255, 255, 255, 0.25);
+}
+
+.marquee-lights {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.marquee-light {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff9c4;
+  box-shadow: 0 0 6px 2px rgba(255, 249, 196, 0.9);
+  animation: bulbBlink 1.4s ease-in-out infinite;
+}
+
+@keyframes bulbBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+.marquee-title {
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.15em;
+  color: #fff;
+  text-shadow:
+    0 0 6px #fff,
+    0 0 16px #ff2fd0,
+    0 0 32px #ff2fd0;
+}
+
+/* ---------- CRT Screen ---------- */
+
+.arcade-screen {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  padding: 3.5rem 1.5rem;
+  background: radial-gradient(circle at 50% 40%, #0f2027 0%, #060a10 75%);
+  box-shadow:
+    inset 0 0 0 4px #000,
+    inset 0 0 40px rgba(0, 0, 0, 0.85),
+    inset 0 0 60px rgba(0, 255, 242, 0.08);
+}
+
+.screen-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.06) 0px,
+    rgba(255, 255, 255, 0.06) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  mix-blend-mode: overlay;
+  animation: screenFlicker 6s linear infinite;
+}
+
+.screen-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 45%, transparent 45%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+@keyframes screenFlicker {
+  0%, 96%, 100% { opacity: 1; }
+  97% { opacity: 0.85; }
+  98% { opacity: 1; }
+  99% { opacity: 0.9; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
 .hero h1 {
-  font-size: 4rem;
+  font-size: 3rem;
   margin-bottom: 1rem;
-  color: var(--color-text);
   font-weight: bold;
+  color: #eafffb;
+  text-shadow:
+    0 0 6px #00fff2,
+    0 0 18px #00fff2,
+    0 0 36px rgba(0, 255, 242, 0.6);
 }
 
 .hero .subtitle {
-  font-size: 1.5rem;
-  color: var(--color-text);
-  margin-bottom: 2rem;
+  font-size: 1.25rem;
+  color: #baf9ff;
+  margin-bottom: 1.5rem;
   opacity: 0.9;
+  text-shadow: 0 0 10px rgba(0, 255, 242, 0.5);
+}
+
+.insert-coin {
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  color: #ffe600;
+  text-shadow: 0 0 8px rgba(255, 230, 0, 0.8);
+  animation: coinBlink 1.2s steps(1) infinite;
+}
+
+@keyframes coinBlink {
+  0%, 60% { opacity: 1; }
+  61%, 100% { opacity: 0; }
+}
+
+/* ---------- Vents ---------- */
+
+.arcade-vents {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+}
+
+.arcade-vents span {
+  width: 30px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.5);
 }
 
 .btn {
@@ -61,25 +207,64 @@
 }
 
 @media (max-width: 768px) {
+  .arcade-cabinet {
+    padding: 1.1rem 1rem 1.75rem;
+    border-radius: 20px;
+  }
+
+  .marquee-title {
+    font-size: 1.1rem;
+  }
+
+  .arcade-screen {
+    padding: 2.5rem 1rem;
+  }
+
   .hero h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
   }
 
   .hero .subtitle {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
+  }
+
+  .insert-coin {
+    font-size: 0.55rem;
   }
 }
 
 @media (max-width: 480px) {
   .hero {
-    padding: 4rem 0;
+    padding: 3rem 0 9rem;
+  }
+
+  .arcade-cabinet {
+    padding: 0.9rem 0.75rem 1.5rem;
+    border-radius: 16px;
+  }
+
+  .arcade-marquee {
+    padding: 0.7rem 0.75rem 0.9rem;
+  }
+
+  .marquee-title {
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+  }
+
+  .arcade-screen {
+    padding: 2rem 0.75rem;
   }
 
   .hero h1 {
-    font-size: 2rem;
+    font-size: 1.7rem;
   }
 
   .hero .subtitle {
-    font-size: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .insert-coin {
+    font-size: 0.48rem;
   }
 }

@@ -24,9 +24,10 @@
 }
 
 .nav-brand {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1rem;
   color: var(--color-text);
+  text-shadow: 0 0 10px rgba(102, 126, 234, 0.35);
 }
 
 .nav-menu {
